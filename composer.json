@@ -1,0 +1,18 @@
+{
+  "name": "andregugliotti/magento2-news-module",
+  "description": "A sample module used to teach how to code on Magento 2. This features a simplified news module",
+  "type": "magento2-module",
+  "version": "0.1.0",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "autoload": {
+    "files": [
+      "src/registration.php"
+    ],
+    "psr-4": {
+      "Gugliotti\\News\\": "src\\"
+    }
+  }
+}
