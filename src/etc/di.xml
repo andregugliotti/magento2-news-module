@@ -5,4 +5,20 @@
     <preference for="Gugliotti\News\Api\Data\CategoryInterface" type="Gugliotti\News\Model\Category"/>
     <preference for="Gugliotti\News\Api\Data\CategorySearchResultsInterface"
             type="Gugliotti\News\Model\CategorySearchResults" />
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="gugliotti_news_categories_listing_data_source"
+                        xsi:type="string">Gugliotti\News\Model\ResourceModel\Category\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Gugliotti\News\Model\ResourceModel\Category\Grid\Collection"
+            type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">gugliotti_news_category</argument>
+            <argument name="resourceModel" xsi:type="string">Gugliotti\News\Model\ResourceModel\Category</argument>
+        </arguments>
+    </virtualType>
 </config>
