@@ -29,7 +29,7 @@ class Collection extends AbstractCollection
     {
         $this->_init(
             'Gugliotti\News\Model\Category',
-            'Gugliotti\News\Model\Category\ResourceModel\Category'
+            'Gugliotti\News\Model\ResourceModel\Category'
         );
     }
 }
