@@ -5,17 +5,17 @@
 namespace Gugliotti\News\Model;
 
 use Gugliotti\News\Api\CategoryRepositoryInterface;
-use Gugliotti\News\Api\Data;
-use Gugliotti\News\Model\ResourceModel\Category as ResourceCategory;
+use Gugliotti\News\Api\Data\CategoryInterface;
+use Gugliotti\News\Api\Data\CategorySearchResultsInterface;
+use Gugliotti\News\Api\Data\CategorySearchResultsInterfaceFactory;
+use Gugliotti\News\Model\ResourceModel\Category as CategoryResource;
 use Gugliotti\News\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
-use Magento\Framework\Api\DataObjectHelper;
+use Gugliotti\News\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Reflection\DataObjectProcessor;
-use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Class BlockRepository
@@ -30,14 +30,14 @@ use Magento\Store\Model\StoreManagerInterface;
 class CategoryRepository implements CategoryRepositoryInterface
 {
     /**
-     * @var ResourceCategory
-     */
-    protected $resource;
-
-    /**
      * @var CategoryFactory
      */
     protected $categoryFactory;
+
+    /**
+     * @var CategoryResource
+     */
+    protected $categoryResource;
 
     /**
      * @var CategoryCollectionFactory
@@ -45,85 +45,40 @@ class CategoryRepository implements CategoryRepositoryInterface
     protected $categoryCollectionFactory;
 
     /**
-     * @var Data\CategoryInterfaceFactory
-     */
-    protected $dataCategoryFactory;
-
-    /**
-     * @var Data\CategorySearchResultsInterfaceFactory
+     * @var CategorySearchResultsInterfaceFactory
      */
     protected $searchResultsFactory;
 
     /**
-     * @var DataObjectHelper
-     */
-    protected $dataObjectHelper;
-
-    /**
-     * @var DataObjectProcessor
-     */
-    protected $dataObjectProcessor;
-
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
-    private $storeManager;
-
-    /**
-     * @var CollectionProcessorInterface
-     */
-    private $collectionProcessor;
-
-    /**
      * CategoryRepository constructor.
-     * @param ResourceCategory $resource
      * @param CategoryFactory $categoryFactory
+     * @param CategoryResource $categoryResource
      * @param CategoryCollectionFactory $categoryCollectionFactory
-     * @param Data\CategoryInterfaceFactory $dataCategoryFactory
-     * @param Data\CategorySearchResultsInterfaceFactory $searchResultsFactory
-     * @param DataObjectHelper $dataObjectHelper
-     * @param DataObjectProcessor $dataObjectProcessor
-     * @param StoreManagerInterface $storeManager
-     * @param CollectionProcessorInterface|null $collectionProcessor
+     * @param CategorySearchResultsInterfaceFactory $searchResultsFactory
      */
     public function __construct(
-        ResourceCategory $resource,
         CategoryFactory $categoryFactory,
+        CategoryResource $categoryResource,
         CategoryCollectionFactory $categoryCollectionFactory,
-        Data\CategoryInterfaceFactory $dataCategoryFactory,
-        Data\CategorySearchResultsInterfaceFactory $searchResultsFactory,
-        DataObjectHelper $dataObjectHelper,
-        DataObjectProcessor $dataObjectProcessor,
-        StoreManagerInterface $storeManager,
-        CollectionProcessorInterface $collectionProcessor = null
+        CategorySearchResultsInterfaceFactory $searchResultsFactory
     ) {
-        $this->resource = $resource;
         $this->categoryFactory = $categoryFactory;
+        $this->categoryResource = $categoryResource;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
-        $this->dataCategoryFactory = $dataCategoryFactory;
         $this->searchResultsFactory = $searchResultsFactory;
-        $this->dataObjectHelper = $dataObjectHelper;
-        $this->dataObjectProcessor = $dataObjectProcessor;
-        $this->storeManager = $storeManager;
-        $this->collectionProcessor = $collectionProcessor;
     }
 
     /**
      * save
      *
-     * @param Data\CategoryInterface $category
-     * @return Data\CategoryInterface
+     * @param CategoryInterface $category
+     * @return CategoryInterface
      * @throws CouldNotSaveException
-     * @throws NoSuchEntityException
      */
-    public function save(Data\CategoryInterface $category)
+    public function save(CategoryInterface $category)
     {
-        if (empty($category->getStoreId())) {
-            $category->setStoreId($this->storeManager->getStore()->getId());
-        }
-
         try {
-            $this->resource->save($category);
+            $this->categoryResource->save($category);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__($exception->getMessage()));
         }
@@ -134,39 +89,17 @@ class CategoryRepository implements CategoryRepositoryInterface
      * getById
      *
      * @param int $categoryId
-     * @return Data\CategoryInterface
+     * @return CategoryInterface
      * @throws NoSuchEntityException
      */
     public function getById($categoryId)
     {
         $category = $this->categoryFactory->create();
-        $this->resource->load($category, $categoryId);
+        $this->categoryResource->load($category, $categoryId);
         if (!$category->getId()) {
             throw new NoSuchEntityException(__('News Category with id "%1" does not exist.', $categoryId));
         }
         return $category;
-    }
-
-    /**
-     * Load Category data collection by given search criteria
-     *
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @SuppressWarnings(PHPMD.NPathComplexity)
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $criteria
-     * @return \Gugliotti\News\Api\Data\CategorySearchResultsInterface
-     */
-    public function getList(SearchCriteriaInterface $criteria)
-    {
-        /** @var \Gugliotti\News\Model\ResourceModel\Category\Collection $collection */
-        $collection = $this->categoryCollectionFactory->create();
-        $this->collectionProcessor->process($criteria, $collection);
-
-        /** @var Data\CategorySearchResultsInterface $searchResults */
-        $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($criteria);
-        $searchResults->setItems($collection->getItems());
-        $searchResults->setTotalCount($collection->getSize());
-        return $searchResults;
     }
 
     /**
@@ -176,10 +109,10 @@ class CategoryRepository implements CategoryRepositoryInterface
      * @return bool
      * @throws CouldNotDeleteException
      */
-    public function delete(Data\CategoryInterface $category)
+    public function delete(CategoryInterface $category)
     {
         try {
-            $this->resource->delete($category);
+            $this->categoryResource->delete($category);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__($exception->getMessage()));
         }
@@ -197,5 +130,82 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function deleteById($categoryId)
     {
         return $this->delete($this->getById($categoryId));
+    }
+
+    /**
+     * getList
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return CategorySearchResultsInterface
+     */
+    public function getList(SearchCriteriaInterface $searchCriteria)
+    {
+        $collection = $this->categoryCollectionFactory->create();
+
+        $this->addFiltersToCollection($searchCriteria, $collection);
+        $this->addSortOrdersToCollection($searchCriteria, $collection);
+        $this->addPagingToCollection($searchCriteria, $collection);
+
+        $collection->load();
+        return $this->buildSearchResult($searchCriteria, $collection);
+    }
+
+    /**
+     * addFiltersToCollection
+     * @param SearchCriteriaInterface $searchCriteria
+     * @param CategoryCollection $collection
+     */
+    protected function addFiltersToCollection(SearchCriteriaInterface $searchCriteria, CategoryCollection $collection)
+    {
+        foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
+            $fields = $conditions = [];
+            foreach ($filterGroup->getFilters() as $filter) {
+                $fields[] = $filter->getField();
+                $conditions[] = [$filter->getConditionType() => $filter->getValue()];
+            }
+            $collection->addFieldToFilter($fields, $conditions);
+        }
+    }
+
+    /**
+     * addSortOrdersToCollection
+     * @param SearchCriteriaInterface $searchCriteria
+     * @param CategoryCollection $collection
+     */
+    protected function addSortOrdersToCollection(
+        SearchCriteriaInterface $searchCriteria,
+        CategoryCollection $collection
+    ) {
+        foreach ((array) $searchCriteria->getSortOrders() as $sortOrder) {
+            $direction = $sortOrder->getDirection() == SortOrder::SORT_ASC ? 'asc' : 'desc';
+            $collection->addOrder($sortOrder->getField(), $direction);
+        }
+    }
+
+    /**
+     * addPagingToCollection
+     * @param SearchCriteriaInterface $searchCriteria
+     * @param CategoryCollection $collection
+     */
+    protected function addPagingToCollection(SearchCriteriaInterface $searchCriteria, CategoryCollection $collection)
+    {
+        $collection->setPageSize($searchCriteria->getPageSize());
+        $collection->setCurPage($searchCriteria->getCurrentPage());
+    }
+
+    /**
+     * buildSearchResult
+     * @param SearchCriteriaInterface $searchCriteria
+     * @param CategoryCollection $collection
+     * @return CategorySearchResultsInterface
+     */
+    protected function buildSearchResult(SearchCriteriaInterface $searchCriteria, CategoryCollection $collection)
+    {
+        $searchResults = $this->searchResultsFactory->create();
+
+        $searchResults->setSearchCriteria($searchCriteria);
+        $searchResults->setItems($collection->getItems());
+        $searchResults->setTotalCount($collection->getSize());
+
+        return $searchResults;
     }
 }

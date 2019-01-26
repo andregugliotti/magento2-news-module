@@ -4,5 +4,5 @@
     <preference for="Gugliotti\News\Api\CategoryRepositoryInterface" type="Gugliotti\News\Model\CategoryRepository" />
     <preference for="Gugliotti\News\Api\Data\CategoryInterface" type="Gugliotti\News\Model\Category"/>
     <preference for="Gugliotti\News\Api\Data\CategorySearchResultsInterface"
-            type="Magento\Framework\Api\SearchResults" />
+            type="Gugliotti\News\Model\CategorySearchResults" />
 </config>

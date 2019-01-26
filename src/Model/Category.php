@@ -13,21 +13,12 @@ use Magento\Framework\Model\AbstractModel;
  *
  * Gugliotti News Category Model.
  *
- * @method string getCode()
- * @method setCode(\string $code)
- * @method string getLabel()
- * @method setLabel(\string $label)
- * @method boolean getStatus()
- * @method setStatus(\int $status)
- * @method string getCreatedAt()
- * @method string getUpdatedAt()
- * @method setUpdatedAt(\string $updatedAt)
  * @author Andre Gugliotti <andre@gugliotti.com.br>
  * @version 0.1.0
  * @license GNU General Public License, version 3
  * @package Gugliotti\News\Model
  */
-class Category extends AbstractModel implements CategoryInterface, IdentityInterface
+class Category extends AbstractModel implements IdentityInterface, CategoryInterface
 {
     /**
      * News Category cache tag
@@ -87,5 +78,100 @@ class Category extends AbstractModel implements CategoryInterface, IdentityInter
             self::STATUS_ENABLED => __('Enabled'),
             self::STATUS_DISABLED => __('Disabled')
         ];
+    }
+
+    /**
+     * getCode
+     * @return mixed|string
+     */
+    public function getCode()
+    {
+        return $this->getData('code');
+    }
+
+    /**
+     * setCode
+     * @param string $code
+     * @return $this|mixed
+     */
+    public function setCode($code)
+    {
+        return $this->setData('code', $code);
+    }
+
+    /**
+     * getLabel
+     * @return mixed|string
+     */
+    public function getLabel()
+    {
+        return $this->getData('label');
+    }
+
+    /**
+     * setLabel
+     * @param string $label
+     * @return $this|mixed
+     */
+    public function setLabel($label)
+    {
+        return $this->setData('label', $label);
+    }
+
+    /**
+     * getStatus
+     * @return mixed|string
+     */
+    public function getStatus()
+    {
+        return $this->getData('status');
+    }
+
+    /**
+     * setStatus
+     * @param string $status
+     * @return $this|mixed
+     */
+    public function setStatus($status)
+    {
+        return $this->setData('status', $status);
+    }
+
+    /**
+     * getCreatedAt
+     * @return mixed|string
+     */
+    public function getCreatedAt()
+    {
+        return $this->getData('created_at');
+    }
+
+    /**
+     * setCreatedAt
+     * @param string $createdAt
+     * @return $this|mixed
+     */
+    public function setCreatedAt($createdAt)
+    {
+        return $this->setData('created_at', $createdAt);
+    }
+
+    /**
+     * getUpdatedAt
+     * @return mixed|string
+     */
+    public function getUpdatedAt()
+    {
+        return $this->getData('updated_at');
+    }
+
+    /**
+     * setUpdatedAt
+     * @param string $updatedAt
+     * @return $this|mixed
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        return $this->setData('updated_at', $updatedAt);
     }
 }

@@ -5,7 +5,6 @@
 namespace Gugliotti\News\Api;
 
 use Gugliotti\News\Api\Data\CategoryInterface;
-use Gugliotti\News\Api\Data\CategorySearchResultsInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
 /**
@@ -23,8 +22,8 @@ interface CategoryRepositoryInterface
     /**
      * Save category.
      *
-     * @param CategoryInterface $category
-     * @return CategoryInterface
+     * @param \Gugliotti\News\Api\Data\CategoryInterface $category
+     * @return \Gugliotti\News\Api\Data\CategoryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function save(CategoryInterface $category);
@@ -33,7 +32,7 @@ interface CategoryRepositoryInterface
      * Retrieve category.
      *
      * @param int $categoryId
-     * @return CategoryInterface
+     * @return \Gugliotti\News\Api\Data\CategoryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getById($categoryId);
@@ -41,8 +40,8 @@ interface CategoryRepositoryInterface
     /**
      * Retrieve categories matching the specified criteria.
      *
-     * @param SearchCriteriaInterface $searchCriteria
-     * @return CategorySearchResultsInterface
+     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
+     * @return \Gugliotti\News\Api\Data\CategorySearchResultsInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getList(SearchCriteriaInterface $searchCriteria);
@@ -50,7 +49,7 @@ interface CategoryRepositoryInterface
     /**
      * Delete category.
      *
-     * @param CategoryInterface $category
+     * @param \Gugliotti\News\Api\Data\CategoryInterface $category
      * @return bool true on success
      * @throws \Magento\Framework\Exception\LocalizedException
      */
