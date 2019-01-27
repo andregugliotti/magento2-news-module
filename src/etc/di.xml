@@ -9,7 +9,7 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="gugliotti_news_categories_listing_data_source"
+                <item name="gugliotti_news_category_listing_data_source"
                         xsi:type="string">Gugliotti\News\Model\ResourceModel\Category\Grid\Collection</item>
             </argument>
         </arguments>

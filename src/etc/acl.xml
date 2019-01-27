@@ -5,8 +5,14 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Backend::content">
-                    <resource id="Gugliotti_News::content_news" title="News" translate="title" sortOrder="100">
-                        <resource id="Gugliotti_News::categories" title="Categories" translate="title" sortOrder="10">
+                    <resource id="Gugliotti_News::content_news" title="News"
+                            translate="title" sortOrder="100">
+                        <resource id="Gugliotti_News::content_news_category"
+                                title="Categories" translate="title" sortOrder="10">
+                            <resource id="Gugliotti_News::category_save" title="Save Category"
+                                    translate="title" sortOrder="10" />
+                            <resource id="Gugliotti_News::category_delete"
+                                    title="Delete Category" translate="title" sortOrder="20" />
                         </resource>
                     </resource>
                 </resource>
