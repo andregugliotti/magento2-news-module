@@ -4,7 +4,7 @@
     <update handle="styles" />
     <body>
         <referenceContainer name="content">
-            <uiComponent name="gugliotti_news_categories_listing" />
+            <uiComponent name="gugliotti_news_category_listing" />
         </referenceContainer>
     </body>
 </page>

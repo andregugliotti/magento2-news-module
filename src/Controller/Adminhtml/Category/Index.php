@@ -2,7 +2,7 @@
 /**
  * Gugliotti News
  */
-namespace Gugliotti\News\Controller\Adminhtml\Categories;
+namespace Gugliotti\News\Controller\Adminhtml\Category;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -11,7 +11,7 @@ use Magento\Framework\View\Result\PageFactory;
 /**
  * Class Index
  *
- * Gugliotti News Backend Categories Index Controller.
+ * Gugliotti News Backend Category Index Controller.
  * @author Andre Gugliotti <andre@gugliotti.com.br>
  * @version 0.1.0
  * @license GNU General Public License, version 3
@@ -24,12 +24,12 @@ class Index extends Action
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Gugliotti_News::categories';
+    const ADMIN_RESOURCE = 'Gugliotti_News::content_news_category';
 
     /**
-     * @var bool|PageFactory
+     * @var PageFactory
      */
-    protected $resultPageFactory = false;
+    protected $resultPageFactory;
 
     /**
      * Index constructor.
@@ -52,8 +52,9 @@ class Index extends Action
     {
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
-        //$resultPage->setActiveMenu('Gugliotti_News::categories');
+        $resultPage->setActiveMenu('Gugliotti_News::content_news_category');
         $resultPage->addBreadcrumb(__('CMS'), __('CMS'));
+        $resultPage->addBreadcrumb(__('News'), __('News'));
         $resultPage->addBreadcrumb(__('Manage Categories'), __('Manage Categories'));
         $resultPage->getConfig()->getTitle()->prepend(__('News Categories'));
 
