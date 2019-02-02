@@ -169,10 +169,12 @@
                 </item>
             </argument>
         </column>
-        <!--actionsColumn name="actions" class="Magento\Cms\Ui\Component\Listing\Column\BlockActions">
+        <actionsColumn name="actions" class="Gugliotti\News\Ui\Component\Listing\Column\CategoryActions">
             <settings>
                 <indexField>category_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
             </settings>
-        </actionsColumn-->
+        </actionsColumn>
     </columns>
 </listing>
