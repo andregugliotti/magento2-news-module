@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Gugliotti_News::content_news" title="News" translate="title"
+                module="Gugliotti_News" sortOrder="100" parent="Magento_Backend::content"
+                resource="Gugliotti_News::content_news" />
+        <add id="Gugliotti_News::content_news_category" title="Manage Categories"
+                translate="title" module="Gugliotti_News" sortOrder="10"
+                parent="Gugliotti_News::content_news" action="gugliotti_news/category"
+                resource="Gugliotti_News::content_news_category" />
+    </menu>
+</config>

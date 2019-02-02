@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Gugliotti\News\Api\CategoryRepositoryInterface" type="Gugliotti\News\Model\CategoryRepository" />
+    <preference for="Gugliotti\News\Api\Data\CategoryInterface" type="Gugliotti\News\Model\Category"/>
+    <preference for="Gugliotti\News\Api\Data\CategorySearchResultsInterface"
+            type="Gugliotti\News\Model\CategorySearchResults" />
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="gugliotti_news_category_listing_data_source"
+                        xsi:type="string">Gugliotti\News\Model\ResourceModel\Category\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Gugliotti\News\Model\ResourceModel\Category\Grid\Collection"
+            type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">gugliotti_news_category</argument>
+            <argument name="resourceModel" xsi:type="string">Gugliotti\News\Model\ResourceModel\Category</argument>
+        </arguments>
+    </virtualType>
+</config>
