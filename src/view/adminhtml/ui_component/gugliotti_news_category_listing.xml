@@ -41,8 +41,14 @@
         </settings>
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
+        <!-- the fulltextSearch depends on the Index, not yet implemented -->
         <!--filterSearch name="fulltext"/-->
         <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
             <settings>
                 <templates>
                     <filters>
@@ -53,19 +59,33 @@
                     </filters>
                 </templates>
             </settings>
-            <!--filterSelect name="store_id" provider="${ $.parentName }">
+            <filterSelect name="store_id" provider="${ $.parentName }">
                 <settings>
                     <captionValue>0</captionValue>
-                    <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
+                    <options class="Gugliotti\News\Ui\Component\Listing\Column\StoreViewOptions"/>
                     <label translate="true">Store View</label>
                     <dataScope>store_id</dataScope>
                     <imports>
                         <link name="visible">componentType = column, index = ${ $.index }:visible</link>
                     </imports>
                 </settings>
-            </filterSelect-->
+            </filterSelect>
         </filters>
-        <!--massaction name="listing_massaction">
+        <massaction name="listing_massaction">
+            <action name="enable">
+                <settings>
+                    <url path="*/*/massEnable"/>
+                    <type>enable</type>
+                    <label translate="true">Enable</label>
+                </settings>
+            </action>
+            <action name="disable">
+                <settings>
+                    <url path="*/*/massDisable"/>
+                    <type>disable</type>
+                    <label translate="true">Disable</label>
+                </settings>
+            </action>
             <action name="delete">
                 <settings>
                     <confirm>
@@ -77,29 +97,17 @@
                     <label translate="true">Delete</label>
                 </settings>
             </action>
-            <action name="edit">
-                <settings>
-                    <callback>
-                        <target>editSelected</target>
-                        <provider>gugliotti_news_category_listing.gugliotti_news_category_listing.gugliotti_news_category_columns_editor</provider>
-                    </callback>
-                    <type>edit</type>
-                    <label translate="true">Edit</label>
-                </settings>
-            </action>
-        </massaction-->
-        <paging name="listing_paging" />
+        </massaction>
+        <paging name="listing_paging"/>
     </listingToolbar>
 
     <columns name="spinner_columns">
         <selectionsColumn name="ids">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="resizeEnabled" xsi:type="boolean">false</item>
-                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
-                    <item name="indexField" xsi:type="string">category_id</item>
-                </item>
-            </argument>
+            <settings>
+                <indexField>category_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>50</resizeDefaultWidth>
+            </settings>
         </selectionsColumn>
         <column name="category_id">
             <argument name="data" xsi:type="array">
@@ -169,11 +177,12 @@
                 </item>
             </argument>
         </column>
-        <actionsColumn name="actions" class="Gugliotti\News\Ui\Component\Listing\Column\CategoryActions">
+        <actionsColumn name="actions"
+                class="Gugliotti\News\Ui\Component\Listing\Column\CategoryActions">
             <settings>
                 <indexField>category_id</indexField>
                 <resizeEnabled>false</resizeEnabled>
-                <resizeDefaultWidth>107</resizeDefaultWidth>
+                <resizeDefaultWidth>100</resizeDefaultWidth>
             </settings>
         </actionsColumn>
     </columns>

@@ -4,6 +4,7 @@
  */
 namespace Gugliotti\News\Model\ResourceModel;
 
+use Gugliotti\News\Model\Category as CategoryModel;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Context;
@@ -24,6 +25,11 @@ class Category extends AbstractDb
      * @var DateTime
      */
     protected $dateTime;
+
+    /**
+     * @var string
+     */
+    protected $_idFieldName = CategoryModel::ID_FIELD_NAME;
 
     /**
      * Category constructor.

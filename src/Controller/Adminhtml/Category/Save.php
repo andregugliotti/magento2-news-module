@@ -112,7 +112,12 @@ class Save extends Action
             $this->dataPersistor->clear('gugliotti_news_category');
 
             // set success message
-            $this->messageManager->addSuccessMessage(__('The category has been successfully deleted.'));
+            $this->messageManager->addSuccessMessage(__('The category has been successfully saved.'));
+
+            // if Save and Continue
+            if ($this->getRequest()->getParam('back')) {
+                return $resultRedirect->setPath('*/*/edit', ['category_id' => $category->getId(), '_current' => true]);
+            }
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(__('There was an error when preparing the category.'));
             $resultRedirect = $this->resultRedirectFactory->create();

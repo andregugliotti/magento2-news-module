@@ -4,6 +4,7 @@
  */
 namespace Gugliotti\News\Model\ResourceModel\Category;
 
+use Gugliotti\News\Model\Category;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 /**
@@ -17,6 +18,11 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
  */
 class Collection extends AbstractCollection
 {
+    /**
+     * @var string
+     */
+    protected $_idFieldName = Category::ID_FIELD_NAME;
+
     /**
      * @var string
      */

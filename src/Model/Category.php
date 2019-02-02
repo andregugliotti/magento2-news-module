@@ -25,6 +25,11 @@ class Category extends AbstractModel implements IdentityInterface, CategoryInter
      */
     const CACHE_TAG = 'news_category';
 
+    /**
+     * ID_FIELD_NAME
+     */
+    const ID_FIELD_NAME = 'category_id';
+
     /**#@+
      * Category statuses
      */
@@ -35,6 +40,11 @@ class Category extends AbstractModel implements IdentityInterface, CategoryInter
      * @var string
      */
     protected $_cacheTag = self::CACHE_TAG;
+
+    /**
+     * @var string
+     */
+    protected $_idFieldName = self::ID_FIELD_NAME;
 
     /**
      * @var string
