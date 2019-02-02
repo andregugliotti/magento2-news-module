@@ -26,7 +26,7 @@
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Gugliotti_News::category</aclResource>
+        <aclResource>Gugliotti_News::content_news_category</aclResource>
         <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="gugliotti_news_category_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
