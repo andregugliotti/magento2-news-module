@@ -5,6 +5,10 @@
     <preference for="Gugliotti\News\Api\Data\CategoryInterface" type="Gugliotti\News\Model\Category"/>
     <preference for="Gugliotti\News\Api\Data\CategorySearchResultsInterface"
             type="Gugliotti\News\Model\CategorySearchResults" />
+    <preference for="Gugliotti\News\Api\StoryRepositoryInterface" type="Gugliotti\News\Model\StoryRepository" />
+    <preference for="Gugliotti\News\Api\Data\StoryInterface" type="Gugliotti\News\Model\Story"/>
+    <preference for="Gugliotti\News\Api\Data\StorySearchResultsInterface"
+            type="Gugliotti\News\Model\StorySearchResults" />
 
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
