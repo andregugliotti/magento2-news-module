@@ -18,7 +18,7 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
- * Class BlockRepository
+ * Class CategoryRepository
  *
  * Gugliotti News Category Repository.
  * @author Andre Gugliotti <andre@gugliotti.com.br>
