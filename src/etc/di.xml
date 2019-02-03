@@ -15,6 +15,8 @@
             <argument name="collections" xsi:type="array">
                 <item name="gugliotti_news_category_listing_data_source"
                         xsi:type="string">Gugliotti\News\Model\ResourceModel\Category\Grid\Collection</item>
+                <item name="gugliotti_news_story_listing_data_source"
+                        xsi:type="string">Gugliotti\News\Model\ResourceModel\Story\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
@@ -23,6 +25,13 @@
         <arguments>
             <argument name="mainTable" xsi:type="string">gugliotti_news_category</argument>
             <argument name="resourceModel" xsi:type="string">Gugliotti\News\Model\ResourceModel\Category</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Gugliotti\News\Model\ResourceModel\Story\Grid\Collection"
+            type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">gugliotti_news_story</argument>
+            <argument name="resourceModel" xsi:type="string">Gugliotti\News\Model\ResourceModel\Story</argument>
         </arguments>
     </virtualType>
 </config>

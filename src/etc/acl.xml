@@ -14,6 +14,13 @@
                             <resource id="Gugliotti_News::category_delete"
                                     title="Delete Category" translate="title" sortOrder="20" />
                         </resource>
+                        <resource id="Gugliotti_News::content_news_story"
+                                title="Stories" translate="title" sortOrder="20">
+                            <resource id="Gugliotti_News::story_save" title="Save Story"
+                                    translate="title" sortOrder="10" />
+                            <resource id="Gugliotti_News::story_delete"
+                                    title="Delete Story" translate="title" sortOrder="20" />
+                        </resource>
                     </resource>
                 </resource>
             </resource>
