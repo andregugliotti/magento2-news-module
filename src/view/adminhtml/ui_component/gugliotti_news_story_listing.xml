@@ -131,18 +131,13 @@
                 </item>
             </argument>
         </column>
-        <!-- to be changed, must display the thumbnail image -->
-        <column name="thumbnail_path">
+        <column name="thumbnail" class="Gugliotti\News\Ui\Component\Listing\Column\StoryThumbnail">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Thumbnail Path</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="has_preview" xsi:type="string">1</item>
+                    <item name="label" xsi:type="string" translate="true">Thumbnail</item>
                 </item>
             </argument>
         </column>

@@ -34,4 +34,21 @@
             <argument name="resourceModel" xsi:type="string">Gugliotti\News\Model\ResourceModel\Story</argument>
         </arguments>
     </virtualType>
+    <virtualType name="StoryImageUploader" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">news</argument>
+            <argument name="basePath" xsi:type="string">news</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Gugliotti\News\Controller\Adminhtml\Story\ThumbnailUpload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">StoryImageUploader</argument>
+        </arguments>
+    </type>
 </config>

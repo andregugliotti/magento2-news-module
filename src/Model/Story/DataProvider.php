@@ -4,8 +4,10 @@
  */
 namespace Gugliotti\News\Model\Story;
 
+use Gugliotti\News\Helper\Data;
 use Gugliotti\News\Model\ResourceModel\Story\CollectionFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Store\Model\StoreManagerInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
 
 /**
@@ -30,6 +32,16 @@ class DataProvider extends AbstractDataProvider
     protected $dataPersistor;
 
     /**
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
+
+    /**
+     * @var Data
+     */
+    protected $helper;
+
+    /**
      * @var array
      */
     protected $loadedData;
@@ -41,6 +53,8 @@ class DataProvider extends AbstractDataProvider
      * @param string $requestFieldName
      * @param CollectionFactory $collectionFactory
      * @param DataPersistorInterface $dataPersistor
+     * @param StoreManagerInterface $storeManager
+     * @param Data $helper
      * @param array $meta
      * @param array $data
      */
@@ -50,11 +64,15 @@ class DataProvider extends AbstractDataProvider
         $requestFieldName,
         CollectionFactory $collectionFactory,
         DataPersistorInterface $dataPersistor,
+        StoreManagerInterface $storeManager,
+        Data $helper,
         array $meta = [],
         array $data = []
     ) {
         $this->collection = $collectionFactory->create();
         $this->dataPersistor = $dataPersistor;
+        $this->storeManager = $storeManager;
+        $this->helper = $helper;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
         $this->meta = $this->prepareMeta($this->meta);
     }
@@ -80,9 +98,19 @@ class DataProvider extends AbstractDataProvider
         }
         $items = $this->collection->getItems();
 
+        // prepare media url
+        $mediaUrl = $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+        $thumbnailUrl = $mediaUrl . $this->helper->getConfigData('images_uploader/folder');
+
         /** @var $item \Gugliotti\News\Model\Story */
         foreach ($items as $item) {
             $this->loadedData[$item->getId()] = $item->getData();
+
+            if ($item->getThumbnailPath()) {
+                $it['thumbnail_path'][0]['name'] = $item->getThumbnailPath();
+                $it['thumbnail_path'][0]['url'] = $thumbnailUrl . $item->getThumbnailPath();
+                $this->loadedData[$item->getId()] = array_merge($this->loadedData[$item->getId()], $it);
+            }
         }
 
         $data = $this->dataPersistor->get('gugliotti_news_story');

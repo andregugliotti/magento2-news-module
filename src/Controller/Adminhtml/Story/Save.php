@@ -108,6 +108,17 @@ class Save extends Action
             }
 
             $story->setData($data);
+
+            // if thumbnail uploaded file is set, use the first one, as at this moment, only one thumbnail is allowed
+            $story->setThumbnailPath(null);
+            if (isset($data['thumbnail_path'][0]['name'])) {
+                $story->setThumbnailPath($data['thumbnail_path'][0]['name']);
+            }
+
+            if (isset($data['thumbnail_path'][0]['file'])) {
+                $story->setThumbnailPath($data['thumbnail_path'][0]['file']);
+            }
+
             $this->storyRepository->save($story);
             $this->dataPersistor->clear('gugliotti_news_story');
 
