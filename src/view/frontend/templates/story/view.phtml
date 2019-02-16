@@ -1,0 +1,30 @@
+<?php
+/** @var \Gugliotti\News\Block\Story\View $block */
+/** @var \Gugliotti\News\Model\Story $story */
+$story = $block->getStory();
+?>
+<div class="container story">
+    <?php if ($story) : ?>
+        <div class="title">
+            <?= $story->getTitle(); ?>
+        </div>
+        <?php if ($story->getThumbnailPath()) : ?>
+            <div class="thumbnail">
+                <img src="<?= $block->getThumbnailSrc($story->getThumbnailPath()); ?>" title="<?= $story->getTitle(); ?>" />
+            </div>
+        <?php endif; ?>
+        <div class="content">
+            <?= $story->getContent(); ?>
+        </div>
+    <?php else : ?>
+        <p><?= __('This story is not available') ?></p>
+    <?php endif ?>
+</div>
+<div class="back-link">
+    <a href="<?= $block->getBackLink($story->getCategoryId()); ?>" title="<?= __('Back to Category'); ?>">
+        <?= __('Back to Category'); ?>
+    </a> |
+    <a href="<?= $block->getBackLink(); ?>" title="<?= __('All Categories'); ?>">
+        <?= __('All Categories'); ?>
+    </a>
+</div>

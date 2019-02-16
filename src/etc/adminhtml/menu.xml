@@ -9,5 +9,9 @@
                 translate="title" module="Gugliotti_News" sortOrder="10"
                 parent="Gugliotti_News::content_news" action="gugliotti_news/category"
                 resource="Gugliotti_News::content_news_category" />
+        <add id="Gugliotti_News::content_news_story" title="Manage Stories"
+                translate="title" module="Gugliotti_News" sortOrder="20"
+                parent="Gugliotti_News::content_news" action="gugliotti_news/story"
+                resource="Gugliotti_News::content_news_story" />
     </menu>
 </config>

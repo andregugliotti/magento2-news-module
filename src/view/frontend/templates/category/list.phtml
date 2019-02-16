@@ -1,0 +1,25 @@
+<?php
+/** @var \Gugliotti\News\Block\Category\Listing $block */
+$categories = $block->getCategories();
+?>
+<div class="container categories">
+    <?php if ($categories && count($categories) > 0) : ?>
+        <ul>
+            <?php /** $ca \Gugliotti\News\Model\Category */ ?>
+            <?php foreach ($categories as $ca) : ?>
+                <li class="category">
+                    <div class="label">
+                        <?= $ca->getLabel(); ?>
+                    </div>
+                    <div class="link">
+                        <a href="<?= $block->getCategoryUrl($ca->getId()); ?>" title="<?= __('View Stories'); ?>">
+                            <?= __('View Stories'); ?>
+                        </a>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else : ?>
+        <p><?= __('No available categories') ?></p>
+    <?php endif ?>
+</div>

@@ -4,13 +4,13 @@
  */
 namespace Gugliotti\News\Model;
 
-use Gugliotti\News\Api\CategoryRepositoryInterface;
-use Gugliotti\News\Api\Data\CategoryInterface;
-use Gugliotti\News\Api\Data\CategorySearchResultsInterface;
-use Gugliotti\News\Api\Data\CategorySearchResultsInterfaceFactory;
-use Gugliotti\News\Model\ResourceModel\Category as CategoryResource;
-use Gugliotti\News\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
-use Gugliotti\News\Model\ResourceModel\Category\Collection as CategoryCollection;
+use Gugliotti\News\Api\StoryRepositoryInterface;
+use Gugliotti\News\Api\Data\StoryInterface;
+use Gugliotti\News\Api\Data\StorySearchResultsInterface;
+use Gugliotti\News\Api\Data\StorySearchResultsInterfaceFactory;
+use Gugliotti\News\Model\ResourceModel\Story as StoryResource;
+use Gugliotti\News\Model\ResourceModel\Story\CollectionFactory as StoryCollectionFactory;
+use Gugliotti\News\Model\ResourceModel\Story\Collection as StoryCollection;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\CouldNotDeleteException;
@@ -18,101 +18,101 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
- * Class CategoryRepository
+ * Class StoryRepository
  *
- * Gugliotti News Category Repository.
+ * Gugliotti News Story Repository.
  * @author Andre Gugliotti <andre@gugliotti.com.br>
- * @version 0.1.0
+ * @version 0.2.0
  * @license GNU General Public License, version 3
  * @package Gugliotti\News\Model
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class CategoryRepository implements CategoryRepositoryInterface
+class StoryRepository implements StoryRepositoryInterface
 {
     /**
-     * @var CategoryFactory
+     * @var StoryFactory
      */
-    protected $categoryFactory;
+    protected $storyFactory;
 
     /**
-     * @var CategoryResource
+     * @var StoryResource
      */
-    protected $categoryResource;
+    protected $storyResource;
 
     /**
-     * @var CategoryCollectionFactory
+     * @var StoryCollectionFactory
      */
-    protected $categoryCollectionFactory;
+    protected $storyCollectionFactory;
 
     /**
-     * @var CategorySearchResultsInterfaceFactory
+     * @var StorySearchResultsInterfaceFactory
      */
     protected $searchResultsFactory;
 
     /**
-     * CategoryRepository constructor.
-     * @param CategoryFactory $categoryFactory
-     * @param CategoryResource $categoryResource
-     * @param CategoryCollectionFactory $categoryCollectionFactory
-     * @param CategorySearchResultsInterfaceFactory $searchResultsFactory
+     * StoryRepository constructor.
+     * @param StoryFactory $storyFactory
+     * @param StoryResource $storyResource
+     * @param StoryCollectionFactory $storyCollectionFactory
+     * @param StorySearchResultsInterfaceFactory $searchResultsFactory
      */
     public function __construct(
-        CategoryFactory $categoryFactory,
-        CategoryResource $categoryResource,
-        CategoryCollectionFactory $categoryCollectionFactory,
-        CategorySearchResultsInterfaceFactory $searchResultsFactory
+        StoryFactory $storyFactory,
+        StoryResource $storyResource,
+        StoryCollectionFactory $storyCollectionFactory,
+        StorySearchResultsInterfaceFactory $searchResultsFactory
     ) {
-        $this->categoryFactory = $categoryFactory;
-        $this->categoryResource = $categoryResource;
-        $this->categoryCollectionFactory = $categoryCollectionFactory;
+        $this->storyFactory = $storyFactory;
+        $this->storyResource = $storyResource;
+        $this->storyCollectionFactory = $storyCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
     }
 
     /**
      * save
      *
-     * @param CategoryInterface $category
-     * @return CategoryInterface
+     * @param StoryInterface $story
+     * @return StoryInterface
      * @throws CouldNotSaveException
      */
-    public function save(CategoryInterface $category)
+    public function save(StoryInterface $story)
     {
         try {
-            $this->categoryResource->save($category);
+            $this->storyResource->save($story);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__($exception->getMessage()));
         }
-        return $category;
+        return $story;
     }
 
     /**
      * getById
      *
-     * @param int $categoryId
-     * @return CategoryInterface
+     * @param int $storyId
+     * @return StoryInterface
      * @throws NoSuchEntityException
      */
-    public function getById($categoryId)
+    public function getById($storyId)
     {
-        $category = $this->categoryFactory->create();
-        $this->categoryResource->load($category, $categoryId);
-        if (!$category->getId()) {
-            throw new NoSuchEntityException(__('News Category with id "%1" does not exist.', $categoryId));
+        $story = $this->storyFactory->create();
+        $this->storyResource->load($story, $storyId);
+        if (!$story->getId()) {
+            throw new NoSuchEntityException(__('News Story with id "%1" does not exist.', $storyId));
         }
-        return $category;
+        return $story;
     }
 
     /**
      * delete
      *
-     * @param \Gugliotti\News\Api\Data\CategoryInterface $category
+     * @param \Gugliotti\News\Api\Data\StoryInterface $story
      * @return bool
      * @throws CouldNotDeleteException
      */
-    public function delete(CategoryInterface $category)
+    public function delete(StoryInterface $story)
     {
         try {
-            $this->categoryResource->delete($category);
+            $this->storyResource->delete($story);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__($exception->getMessage()));
         }
@@ -122,24 +122,24 @@ class CategoryRepository implements CategoryRepositoryInterface
     /**
      * deleteById
      *
-     * @param string $categoryId
+     * @param string $storyId
      * @return bool
      * @throws CouldNotDeleteException
      * @throws NoSuchEntityException
      */
-    public function deleteById($categoryId)
+    public function deleteById($storyId)
     {
-        return $this->delete($this->getById($categoryId));
+        return $this->delete($this->getById($storyId));
     }
 
     /**
      * getList
      * @param SearchCriteriaInterface $searchCriteria
-     * @return CategorySearchResultsInterface
+     * @return StorySearchResultsInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
-        $collection = $this->categoryCollectionFactory->create();
+        $collection = $this->storyCollectionFactory->create();
 
         $this->addFiltersToCollection($searchCriteria, $collection);
         $this->addSortOrdersToCollection($searchCriteria, $collection);
@@ -152,9 +152,9 @@ class CategoryRepository implements CategoryRepositoryInterface
     /**
      * addFiltersToCollection
      * @param SearchCriteriaInterface $searchCriteria
-     * @param CategoryCollection $collection
+     * @param StoryCollection $collection
      */
-    protected function addFiltersToCollection(SearchCriteriaInterface $searchCriteria, CategoryCollection $collection)
+    protected function addFiltersToCollection(SearchCriteriaInterface $searchCriteria, StoryCollection $collection)
     {
         foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
             $fields = $conditions = [];
@@ -169,11 +169,11 @@ class CategoryRepository implements CategoryRepositoryInterface
     /**
      * addSortOrdersToCollection
      * @param SearchCriteriaInterface $searchCriteria
-     * @param CategoryCollection $collection
+     * @param StoryCollection $collection
      */
     protected function addSortOrdersToCollection(
         SearchCriteriaInterface $searchCriteria,
-        CategoryCollection $collection
+        StoryCollection $collection
     ) {
         foreach ((array) $searchCriteria->getSortOrders() as $sortOrder) {
             $direction = $sortOrder->getDirection() == SortOrder::SORT_ASC ? 'asc' : 'desc';
@@ -184,9 +184,9 @@ class CategoryRepository implements CategoryRepositoryInterface
     /**
      * addPagingToCollection
      * @param SearchCriteriaInterface $searchCriteria
-     * @param CategoryCollection $collection
+     * @param StoryCollection $collection
      */
-    protected function addPagingToCollection(SearchCriteriaInterface $searchCriteria, CategoryCollection $collection)
+    protected function addPagingToCollection(SearchCriteriaInterface $searchCriteria, StoryCollection $collection)
     {
         $collection->setPageSize($searchCriteria->getPageSize());
         $collection->setCurPage($searchCriteria->getCurrentPage());
@@ -195,10 +195,10 @@ class CategoryRepository implements CategoryRepositoryInterface
     /**
      * buildSearchResult
      * @param SearchCriteriaInterface $searchCriteria
-     * @param CategoryCollection $collection
-     * @return CategorySearchResultsInterface
+     * @param StoryCollection $collection
+     * @return StorySearchResultsInterface
      */
-    protected function buildSearchResult(SearchCriteriaInterface $searchCriteria, CategoryCollection $collection)
+    protected function buildSearchResult(SearchCriteriaInterface $searchCriteria, StoryCollection $collection)
     {
         $searchResults = $this->searchResultsFactory->create();
 

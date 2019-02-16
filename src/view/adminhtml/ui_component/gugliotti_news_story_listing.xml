@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider"
-                    xsi:type="string">gugliotti_news_category_listing.gugliotti_news_category_listing_data_source</item>
+                    xsi:type="string">gugliotti_news_story_listing.gugliotti_news_story_listing_data_source</item>
             <item name="deps"
-                    xsi:type="string">gugliotti_news_category_listing.gugliotti_news_category_listing_data_source</item>
+                    xsi:type="string">gugliotti_news_story_listing.gugliotti_news_story_listing_data_source</item>
         </item>
         <item name="spinner" xsi:type="string">spinner_columns</item>
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
                 <item name="name" xsi:type="string">add</item>
-                <item name="label" xsi:type="string" translate="true">Add New Category</item>
+                <item name="label" xsi:type="string" translate="true">Add New Story</item>
                 <item name="class" xsi:type="string">primary</item>
                 <item name="url" xsi:type="string">*/*/new</item>
             </item>
         </item>
     </argument>
 
-    <dataSource name="gugliotti_news_category_listing_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="gugliotti_news_story_listing_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
-                <param name="indexField" xsi:type="string">category_id</param>
+                <param name="indexField" xsi:type="string">story_id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Gugliotti_News::content_news_category</aclResource>
-        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="gugliotti_news_category_listing_data_source">
+        <aclResource>Gugliotti_News::content_news_story</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="gugliotti_news_story_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
-                <primaryFieldName>category_id</primaryFieldName>
+                <primaryFieldName>story_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
@@ -103,12 +103,12 @@
     <columns name="spinner_columns">
         <selectionsColumn name="ids">
             <settings>
-                <indexField>category_id</indexField>
+                <indexField>story_id</indexField>
                 <resizeEnabled>false</resizeEnabled>
                 <resizeDefaultWidth>50</resizeDefaultWidth>
             </settings>
         </selectionsColumn>
-        <column name="category_id">
+        <column name="story_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">textRange</item>
@@ -117,7 +117,7 @@
                 </item>
             </argument>
         </column>
-        <column name="code">
+        <column name="title">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -127,11 +127,21 @@
                             <item name="required-entry" xsi:type="boolean">true</item>
                         </item>
                     </item>
-                    <item name="label" xsi:type="string" translate="true">Code</item>
+                    <item name="label" xsi:type="string" translate="true">Title</item>
                 </item>
             </argument>
         </column>
-        <column name="label">
+        <column name="thumbnail" class="Gugliotti\News\Ui\Component\Listing\Column\StoryThumbnail">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="has_preview" xsi:type="string">1</item>
+                    <item name="label" xsi:type="string" translate="true">Thumbnail</item>
+                </item>
+            </argument>
+        </column>
+        <column name="content">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -141,13 +151,13 @@
                             <item name="required-entry" xsi:type="boolean">true</item>
                         </item>
                     </item>
-                    <item name="label" xsi:type="string" translate="true">Label</item>
+                    <item name="label" xsi:type="string" translate="true">Content</item>
                 </item>
             </argument>
         </column>
         <column name="status" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <options class="Gugliotti\News\Model\Block\Source\CategoryStatus"/>
+                <options class="Gugliotti\News\Model\Block\Source\StoryStatus"/>
                 <filter>select</filter>
                 <editor>
                     <editorType>select</editorType>
@@ -177,9 +187,9 @@
             </argument>
         </column>
         <actionsColumn name="actions"
-                class="Gugliotti\News\Ui\Component\Listing\Column\CategoryActions">
+                class="Gugliotti\News\Ui\Component\Listing\Column\StoryActions">
             <settings>
-                <indexField>category_id</indexField>
+                <indexField>story_id</indexField>
                 <resizeEnabled>false</resizeEnabled>
                 <resizeDefaultWidth>100</resizeDefaultWidth>
             </settings>

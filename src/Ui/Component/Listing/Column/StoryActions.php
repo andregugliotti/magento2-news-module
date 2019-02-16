@@ -12,25 +12,25 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 
 /**
- * Class CategoryActions
+ * Class StoryActions
  *
- * Gugliotti News Category Ui Component.
+ * Gugliotti News Story Ui Component.
  * @author Andre Gugliotti <andre@gugliotti.com.br>
- * @version 0.1.0
+ * @version 0.2.0
  * @license GNU General Public License, version 3
  * @package Gugliotti\News\Ui\Component\Listing\Column
  */
-class CategoryActions extends Column
+class StoryActions extends Column
 {
     /**
      * URL_EDIT
      */
-    const URL_EDIT = 'gugliotti_news/category/edit';
+    const URL_EDIT = 'gugliotti_news/story/edit';
 
     /**
      * URL_DELETE
      */
-    const URL_DELETE = 'gugliotti_news/category/delete';
+    const URL_DELETE = 'gugliotti_news/story/delete';
 
     /**
      * @var UrlBuilder
@@ -48,7 +48,7 @@ class CategoryActions extends Column
     protected $escaper;
 
     /**
-     * CategoryActions constructor.
+     * StoryActions constructor.
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
      * @param UrlBuilder $urlBuilder
@@ -90,27 +90,27 @@ class CategoryActions extends Column
             $name = $this->getData('name');
 
             // build the actions data according with the entity
-            if (isset($item['category_id'])) {
+            if (isset($item['story_id'])) {
                 $item[$name]['edit'] = array(
-                    'href' => $this->url->getUrl(self::URL_EDIT, ['category_id' => $item['category_id']]),
+                    'href' => $this->url->getUrl(self::URL_EDIT, ['story_id' => $item['story_id']]),
                     'label' => __('Edit')
                 );
 
-                $label = $this->escaper->escapeHtml($item['label']);
+                $label = $this->escaper->escapeHtml($item['title']);
                 $item[$name]['delete'] = array(
-                    'href' => $this->url->getUrl(self::URL_DELETE, ['category_id' => $item['category_id']]),
+                    'href' => $this->url->getUrl(self::URL_DELETE, ['story_id' => $item['story_id']]),
                     'label' => __('Delete'),
                     'confirm' => array(
-                        'title' => __("Delete Category"),
+                        'title' => __("Delete Story"),
                         'message' => __("Are you sure you want to delete the record <b>%1</b>?", $label)
                     ),
                 );
             }
 
-            if (isset($item['category_id'])) {
+            if (isset($item['story_id'])) {
                 $item[$name]['preview'] = array(
                     'href' => $this->urlBuilder->getUrl(
-                        'news/category/view/id/' . $item['category_id'],
+                        'news/story/view/id/' . $item['story_id'],
                         isset($item['_first_store_id']) ? $item['_first_store_id'] : null,
                         isset($item['store_code']) ? $item['store_code'] : null
                     ),

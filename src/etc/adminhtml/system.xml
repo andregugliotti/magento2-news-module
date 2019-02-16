@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="gugliotti_news" translate="label" sortOrder="100"
+                showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Gugliotti News</label>
+            <tab>general</tab>
+            <resource>Gugliotti_News::settings</resource>
+            <group id="general" translate="label" sortOrder="10"
+                    showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label,tooltip" sortOrder="10" type="select"
+                        showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Is enabled</label>
+                    <tooltip>The news will appear on frontend?</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

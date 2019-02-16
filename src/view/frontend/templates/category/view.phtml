@@ -1,0 +1,38 @@
+<?php
+    /** @var \Gugliotti\News\Block\Category\View $block */
+    $stories = $block->getCategoryStories();
+?>
+<div class="container stories">
+    <?php if ($stories && count($stories) > 0) : ?>
+    <ul>
+        <?php /** $st \Gugliotti\News\Model\Story */ ?>
+        <?php foreach ($stories as $st) : ?>
+        <li class="story">
+            <div class="title">
+                <?= $st->getTitle(); ?>
+            </div>
+            <?php if ($st->getThumbnailPath()) : ?>
+            <div class="thumbnail">
+                <img src="<?= $block->getThumbnailSrc($st->getThumbnailPath()); ?>" title="<?= $st->getTitle(); ?>" />
+            </div>
+            <?php endif; ?>
+            <div class="content">
+                <?= $st->getContent(); ?>
+            </div>
+            <div class="link">
+                <a href="<?= $block->getStoryUrl($st->getId()); ?>" title="<?= __('Read More'); ?>">
+                    <?= __('Read More'); ?>
+                </a>
+            </div>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php else : ?>
+    <p><?= __('No stories associated to this category') ?></p>
+    <?php endif ?>
+</div>
+<div class="back-link">
+    <a href="<?= $block->getBackLink(); ?>" title="<?= __('All Categories'); ?>">
+        <?= __('All Categories'); ?>
+    </a>
+</div>

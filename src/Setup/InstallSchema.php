@@ -152,7 +152,7 @@ class InstallSchema implements InstallSchemaInterface
                     'category_id'
                 ),
                 'category_id',
-                $setup->getTable('gugliotti_news/category'),
+                $setup->getTable('gugliotti_news_category'),
                 'category_id'
             )->setComment('Gugliotti News Stories');
         } catch (\Exception $e) {

@@ -5,12 +5,18 @@
     <preference for="Gugliotti\News\Api\Data\CategoryInterface" type="Gugliotti\News\Model\Category"/>
     <preference for="Gugliotti\News\Api\Data\CategorySearchResultsInterface"
             type="Gugliotti\News\Model\CategorySearchResults" />
+    <preference for="Gugliotti\News\Api\StoryRepositoryInterface" type="Gugliotti\News\Model\StoryRepository" />
+    <preference for="Gugliotti\News\Api\Data\StoryInterface" type="Gugliotti\News\Model\Story"/>
+    <preference for="Gugliotti\News\Api\Data\StorySearchResultsInterface"
+            type="Gugliotti\News\Model\StorySearchResults" />
 
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item name="gugliotti_news_category_listing_data_source"
                         xsi:type="string">Gugliotti\News\Model\ResourceModel\Category\Grid\Collection</item>
+                <item name="gugliotti_news_story_listing_data_source"
+                        xsi:type="string">Gugliotti\News\Model\ResourceModel\Story\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
@@ -21,4 +27,28 @@
             <argument name="resourceModel" xsi:type="string">Gugliotti\News\Model\ResourceModel\Category</argument>
         </arguments>
     </virtualType>
+    <virtualType name="Gugliotti\News\Model\ResourceModel\Story\Grid\Collection"
+            type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">gugliotti_news_story</argument>
+            <argument name="resourceModel" xsi:type="string">Gugliotti\News\Model\ResourceModel\Story</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="StoryImageUploader" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">news</argument>
+            <argument name="basePath" xsi:type="string">news</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Gugliotti\News\Controller\Adminhtml\Story\ThumbnailUpload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">StoryImageUploader</argument>
+        </arguments>
+    </type>
 </config>
