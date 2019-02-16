@@ -91,6 +91,29 @@
                 <dataScope>title</dataScope>
             </settings>
         </field>
+        <field name="category_id" sortOrder="25" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">story</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>int</dataType>
+                <label translate="true">Category</label>
+                <dataScope>category_id</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Gugliotti\News\Ui\Component\Listing\Column\Category\ListAll"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
         <field name="thumbnail_path" sortOrder="30">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
