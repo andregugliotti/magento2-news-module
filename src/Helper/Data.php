@@ -33,6 +33,15 @@ class Data extends AbstractHelper
     }
 
     /**
+     * isEnabled
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->getConfigData('general/enabled');
+    }
+
+    /**
      * getAllowedFiles
      * @return array
      */

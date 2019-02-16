@@ -23,6 +23,13 @@
                         </resource>
                     </resource>
                 </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Gugliotti_News::settings" title="Gugliotti News" />
+                        </resource>
+                    </resource>
+                </resource>
             </resource>
         </resources>
     </acl>
