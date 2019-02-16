@@ -107,19 +107,16 @@ class StoryActions extends Column
                 );
             }
 
-            /**
-            // todo: to be implemented after frontend controllers
-            if (isset($item['code'])) {
-            $item[$name]['preview'] = array(
-            'href' => $this->urlBuilder->getUrl(
-            $item['code'],
-            isset($item['_first_store_id']) ? $item['_first_store_id'] : null,
-            isset($item['store_code']) ? $item['store_code'] : null
-            ),
-            'label' => __('View')
-            );
+            if (isset($item['story_id'])) {
+                $item[$name]['preview'] = array(
+                    'href' => $this->urlBuilder->getUrl(
+                        'news/story/view/id/' . $item['story_id'],
+                        isset($item['_first_store_id']) ? $item['_first_store_id'] : null,
+                        isset($item['store_code']) ? $item['store_code'] : null
+                    ),
+                    'label' => __('View')
+                );
             }
-             */
         }
         return $dataSource;
     }

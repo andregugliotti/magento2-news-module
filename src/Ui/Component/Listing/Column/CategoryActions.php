@@ -107,19 +107,16 @@ class CategoryActions extends Column
                 );
             }
 
-            /**
-            // todo: to be implemented after frontend controllers
-            if (isset($item['code'])) {
+            if (isset($item['category_id'])) {
                 $item[$name]['preview'] = array(
                     'href' => $this->urlBuilder->getUrl(
-                        $item['code'],
+                        'news/category/view/id/' . $item['category_id'],
                         isset($item['_first_store_id']) ? $item['_first_store_id'] : null,
                         isset($item['store_code']) ? $item['store_code'] : null
                     ),
                     'label' => __('View')
                 );
             }
-             */
         }
         return $dataSource;
     }
